@@ -3,7 +3,7 @@ import os # allows me to use os.chdir
 import gzip
 import shutil
 import datetime
-
+#
 port=21
 ip="193.186.209.35"
 password='k8h5f9'
