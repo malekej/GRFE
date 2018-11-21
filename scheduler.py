@@ -13,8 +13,8 @@ if __name__=='__main__':
             job_func = jobqueue.get()
             job_func()
 
-    schedule.every().monday.at('10:20').do(jobqueue.put, download)
-    schedule.every().monday.at('10:20').do(jobqueue.put, delete)
+    schedule.every().tuesday.at('14:05').do(jobqueue.put, download)
+    schedule.every().tuesday.at('14:05').do(jobqueue.put, delete)
 
     worker_thread = threading.Thread(target=worker_main)
     worker_thread.start()
