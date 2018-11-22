@@ -27,7 +27,7 @@ def mft(week=0, year=0, flag = False, week_diff=0):
         if tag == 'AA': # handling exception
             exc = '_new'
 
-        text_file = open('{}.mft'.format(tag), 'w')#creating file
+        text_file = open('{}.mft'.format(tag), 'w')#creating temporary files
         text_file.write(
 '''open sftp://{user}:{password}@eumft.nielsen.com:22
 dir *.*

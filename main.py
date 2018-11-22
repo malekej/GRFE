@@ -1,6 +1,7 @@
 from REWE_split import download, delete
 from mft_send import mft
-decision=''
+
+decision = ''
 
 if __name__=='__main__':
     while decision != 'q':
@@ -23,17 +24,23 @@ Please select action:
         except:
             pass
 
-        if decision == 'split':
+        if decision == 'split' and flag:
+            download(week_diff=week_diff)
+        elif decision == 'split' and not flag:
             download()
 
-        if decision == 'delete':
+        if decision == 'delete' and flag:
+            delete(week_diff=week_diff)
+        elif decision == 'delete' and not flag:
             delete()
 
-        if decision == 'mft':
+        if decision == 'mft' and flag:
+            mft(week_diff=week_diff)
+        elif decision == 'mft' and flag:
             mft()
 
         if decision == 'help':
             print('''To overwrite base settings insert how many weeks back you want to download file from.
-            For example, if you want to download file from two eeks ago, insert after space '2': download 2.''')
+            For example, if you want to download file from two weeks ago, insert after space '2': download 2.''')
 
 
