@@ -23,19 +23,16 @@ def mft(week=0, year=0, flag = False, week_diff=0):
 
     os.chdir(working_dir)#change of working directory
     for tag in passwords:
-        exc=''
-        if tag == 'AA': # handling exception
-            exc = '_new'
 
         text_file = open('{}.mft'.format(tag), 'w')#creating temporary files
         text_file.write(
 '''open sftp://{user}:{password}@eumft.nielsen.com:22
 dir *.*
-copy  o:\Data\BackupFTP\\aktJahr\{fullname}\{shortcut}W{year}{week}.* /{shortcut}_{fullname}{exception}/
+copy  o:\Data\BackupFTP\\aktJahr\{fullname}\{shortcut}W{year}{week}.* /AT_{shortcut}_{fullname}/
 dir *.*
 exit
 '''.format(shortcut = tag, week=week, year=str(year)[-2:], user = passwords[tag][0], password = passwords[tag][1],
-           fullname=passwords[tag][2], exception=exc))
+           fullname=passwords[tag][2]))
         text_file.close()
 
 
