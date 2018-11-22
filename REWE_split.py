@@ -156,7 +156,7 @@ def download(week_diff=0):
 
         #trying to upload to mft, if can't then will send mail
         try:
-            mft(week=week, year=yy)
+            mft(week=week, year=yy, flag = True)
             mail()
         except:
             mail_failure()

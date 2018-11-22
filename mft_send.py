@@ -9,9 +9,9 @@ passwords={'AA':('atadegaktiv','reweadeg1', 'AdegAktiv'), 'AR':('atadegrewe','re
            'BI':('atbilla','rewebilla7', 'Billa')}
 
 
-def mft(week, year, week_diff=0):
+def mft(week=0, year=0, flag = False, week_diff=0):
 
-    if week_diff != 0:
+    if not flag:
         dayz = (week_diff + 1) * 7  # calculating how many days back
         week = datetime.datetime.now().isocalendar()[1] - 1  # returns calendar week, -1 because we are producing 1 week back
         if week == 0:  # if it was week 1 of new year it will return week from last year, timedelta says how many days back we want to go back
@@ -21,7 +21,7 @@ def mft(week, year, week_diff=0):
             year = datetime.datetime.now().year
 
 
-    os.chdir(working_dir)
+    os.chdir(working_dir)#change of working directory
     for tag in passwords:
         exc=''
         if tag == 'AA': # handling exception
