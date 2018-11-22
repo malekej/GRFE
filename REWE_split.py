@@ -13,22 +13,23 @@ working_dir = r'\\atwieisi01\Blackdata_Input\Data\BackupFTP\aktJahr'
 directory_FIIFNI = '/in/Fil/' #dirrectory of FIIFNI file in FTP
 directory_TOIFNI = '/in/Total/' #directory of TOIFNI file in FTP
 
-def download():
+def download(week_diff=0):
     i, j = 0, 0
     flagA, flagB = False, False
 
+    dayz = (week_diff+1)*7#calculating how many days back
 
     week=datetime.datetime.now().isocalendar()[1]-1 #returns calendar week, -1 because we are producing 1 week back
     if week == 0:#if it was week 1 of new year it will return week from last year, timedelta says how many days back we want to go back
-        week=(datetime.datetime.now() - datetime.timedelta(days=7)).isocalendar()[1]
-        yy=(datetime.datetime.now() - datetime.timedelta(days=7)).year
+        week=(datetime.datetime.now() - datetime.timedelta(days=dayz)).isocalendar()[1]
+        yy=(datetime.datetime.now() - datetime.timedelta(days=dayz)).year
     else:
         yy = datetime.datetime.now().year
 
 
     #working_dir=r"C:\Users\olwo7001\Desktop\REWE SPLIT"
+
     #logging to ftp
-    port = 21
     ip = "193.186.209.35"
     password = 'k8h5f9'
     ftp = FTP(ip, 'kop050b', password)
@@ -155,20 +156,15 @@ def download():
 
         #trying to upload to mft, if can't then will send mail
         try:
-            mft()
-        except:
-            mail_failure()
-            pass
-
-        #will try to send mail
-        try:
+            mft(week=week, year=yy)
             mail()
         except:
+            mail_failure()
             pass
     else:
         mail_missing(flagA, flagB)
 
-def delete():
+def delete(week_diff=0):
     ip = "193.186.209.35"
     password = 'k8h5f9'
     ftp = FTP(ip,'kop050b', password)#logging to ftp
@@ -176,10 +172,12 @@ def delete():
     flag_1 = False
     flag_2 = False
 
-    week = datetime.datetime.now().isocalendar()[1] - 1  # returns calendar week, -1 because we are producing 1 week back
-    if week == 0:  # if it was week 1 of new year it will return week from last year, timedelta says how many days back we want to go back
-        week = (datetime.datetime.now() - datetime.timedelta(days=7)).isocalendar()[1]
 
+    dayz = (week_diff+1)*7#calculating how many days back
+
+    week=datetime.datetime.now().isocalendar()[1]-1 #returns calendar week, -1 because we are producing 1 week back
+    if week == 0:#if it was week 1 of new year it will return week from last year, timedelta says how many days back we want to go back
+        week=(datetime.datetime.now() - datetime.timedelta(days=dayz)).isocalendar()[1]
 
     filename = 'FIIFNI' + str(week) + '.ZIP'
     filename_t = 'TOIFNI' + str(week) + '.ZIP'

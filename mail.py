@@ -11,7 +11,7 @@ def mail():
     body = '''
 Hi,
 
-\(^ _ ^)/    Completed REWE split task at:{}    \(^ _ ^)/'''.format(str(datetime.datetime.now()))
+\(^ _ ^)/    Completed REWE split task at:{}.    \(^ _ ^)/'''.format(str(datetime.datetime.now()))
 
     email_text = 'From: {}\nTo: {}\nSubject: {}\n\n{}'.format(sent_from, to, subject, body)
 
@@ -51,7 +51,7 @@ def mail_missing(flagA, flagB):
     body = '''
 Hi,
 
-\( O . O )\   I couldn\'t find file {file} /( O . O )/'''.format(file=file)
+\( O . O )\   I couldn\'t find file {file}. /( O . O )/'''.format(file=file)
 
     email_text = 'From: {}\nTo: {}\nSubject: {}\n\n{}'.format(sent_from, to, subject, body)
 
