@@ -7,11 +7,11 @@ gmail_password = 'kgixsmdlhzdntzyn'
 def mail():
     sent_from = 'natalia.wojtkowiak@nielsen.com'
     to = ['daten.eingang@nielsen.com', 'natalia.wojtkowiak@nielsen.com']
-    subject = 'Sirpair production!'
+    subject = 'REWE split!'
     body = '''
 Hi,
 
-\(^ _ ^)/    Completed REWE split task at:{}.    \(^ _ ^)/'''.format(str(datetime.datetime.now()))
+\(^ _ ^)/    Completed REWE split task at: {}.    \(^ _ ^)/'''.format(str(datetime.datetime.now()))
 
     email_text = 'From: {}\nTo: {}\nSubject: {}\n\n{}'.format(sent_from, to, subject, body)
 
@@ -23,12 +23,12 @@ Hi,
 
 def mail_failure():
     sent_from = 'natalia.wojtkowiak@nielsen.com'
-    to = ['natalia.wojtkowiak@nielsen.com', 'marek.milcarz@nielsen.com']
-    subject = 'Sirpair production!'
+    to = ['natalia.wojtkowiak@nielsen.com', 'marek.milcarz@nielsen.com', 'daten.eingang@nielsen.com']
+    subject = 'MFT problem!'
     body = '''
 Hi,
 
-( / _ \ )   Somethin went wrong with sending. Better check what happened.  ( / _ \ )'''
+( / _ \ )   Something went wrong with sending. Better check what happened.  ( / _ \ )'''
 
     email_text = 'From: {}\nTo: {}\nSubject: {}\n\n{}'.format(sent_from, to, subject, body)
 
@@ -46,8 +46,8 @@ def mail_missing(flagA, flagB):
     else:
         file = 'FIIFNI and TOIFNI'
     sent_from = 'natalia.wojtkowiak@nielsen.com'
-    to = ['natalia.wojtkowiak@nielsen.com', 'marek.milcarz@nielsen.com']
-    subject = 'Sirpair production!'
+    to = ['natalia.wojtkowiak@nielsen.com', 'marek.milcarz@nielsen.com', 'daten.eingang@nielsen.com']
+    subject = 'Missing rewe file!'
     body = '''
 Hi,
 

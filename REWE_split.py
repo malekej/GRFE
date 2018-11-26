@@ -8,7 +8,7 @@ from mft_send import mft
 
 
 # working directory where we store splited files
-working_dir = r'\\atwieisi01\Blackdata_Input\Data\BackupFTP\aktJahr'
+working_dir = r'O:\Data\BackupFTP\aktJahr'
 
 directory_FIIFNI = '/in/Fil/' #dirrectory of FIIFNI file in FTP
 directory_TOIFNI = '/in/Total/' #directory of TOIFNI file in FTP
@@ -54,7 +54,7 @@ def download(week_diff=0):
     ftp.cwd(directory_TOIFNI)
     filename_t = 'TOIFNI'+str(week)+'.ZIP'
     for file in ftp.nlst(filename_t):
-        i+=1
+        j+=1
     if i == 1:
         flagB = True
     fhandle_t = open(filename_t, 'wb')
@@ -83,14 +83,14 @@ def download(week_diff=0):
             with open(working_file_t, 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
 
-        biw = open(working_dir+'\Billa\BIW'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
-        b2w = open(working_dir+'\Bipa\B2W'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
-        aaw = open(working_dir+'\AdegAktiv\AAW'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
-        arw = open(working_dir+'\AdegRewe\ARW'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
-        mew = open(working_dir+'\Merkur\MEW'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
-        pen = open(working_dir+'\Penny\PYW'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
-        sut = open(working_dir+'\SutterLuety\S7W'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
-        x1 = open(working_dir+'\X1_BMLSonstige\X1W'+str(yy)+str(week)+'.DAT', "w", encoding='ansi')
+        biw = open(working_dir+'\Billa\BIW'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+        b2w = open(working_dir+'\Bipa\B2W'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+        aaw = open(working_dir+'\AdegAktiv\AAW'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+        arw = open(working_dir+'\AdegRewe\ARW'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+        mew = open(working_dir+'\Merkur\MEW'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+        pen = open(working_dir+'\Penny\PYW'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+        sut = open(working_dir+'\SutterLuety\S7W'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+        x1 = open(working_dir+'\X1_BMLSonstige\X1W'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
 
         with open(working_file, encoding='ansi') as f:
             i=0
@@ -188,7 +188,7 @@ def delete(week_diff=0):
         ftp.delete(filename)
         flag_1 = True
     except FileNotFoundError:
-        print('I didn\'t find FIIFNI file')
+        print('I didn\'t find FIIFNI file in FTP')
         pass
 
     # deleting TOIFNI
@@ -197,8 +197,19 @@ def delete(week_diff=0):
         ftp.delete(filename_t)
         flag_2 = True
     except FileNotFoundError:
-        print('I didn\'t find FIIFNI file')
+        print('I didn\'t find TOIFNI file in FTP')
         pass
+
+    os.chdir(working_dir+'REWE_originals')
+    try:
+        os.remove('FIIFNI' + str(week) + '.txt')
+    except FileNotFoundError:
+        print('I didn\'t find unpacked FIIFNI file in folder.')
+
+    try:
+        os.remove('TOIFNI' + str(week) + '.txt')
+    except FileNotFoundError:
+        print('I didn\'t find unpacked TOIFNI file in folder.')
 
     if flag_1 and flag_2:
         print('Both files are deleted from FTP')

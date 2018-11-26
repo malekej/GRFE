@@ -2,7 +2,7 @@ import os
 import datetime
 
 #working_dir = r'C:\Users\mima8005\Desktop\NO IV\GRFE'
-working_dir = r'\\atwieisi01\Blackdata_Input\Data\BackupFTP\\aktJahr'
+working_dir = r'O:\Data\BackupFTP\aktJahr'
 passwords={'AA':('atadegaktiv','reweadeg1', 'AdegAktiv'), 'AR':('atadegrewe','reweadeg2', 'AdegRewe'),
            'S7':('atsutterluety','rewesutterluety3','Sutterluety'), 'PY':('atpenny','rewepenny4', 'Penny'),
            'B2':('atbipa','rewebipa5', 'Bipa'), 'ME':('atmerkur','rewemerkur6', 'Merkur'),
@@ -28,7 +28,7 @@ def mft(week=0, year=0, flag = False, week_diff=0):
         text_file.write(
 '''open sftp://{user}:{password}@eumft.nielsen.com:22
 dir *.*
-copy  o:\Data\BackupFTP\\aktJahr\{fullname}\{shortcut}W{year}{week}.* /AT_{shortcut}_{fullname}/
+put o:\Data\BackupFTP\\aktJahr\{fullname}\{shortcut}W{year}{week}.* /AT_{shortcut}_{fullname}/
 dir *.*
 exit
 '''.format(shortcut = tag, week=week, year=str(year)[-2:], user = passwords[tag][0], password = passwords[tag][1],
@@ -36,10 +36,10 @@ exit
         text_file.close()
 
 
-    os.startfile('batch.bat')#starts the bat file
+    os.startfile('rewe.bat')#starts the bat file
 
-    for tag in passwords:#removes temporary files
-        os.remove(tag+'.mft')
+    #for tag in passwords:#removes temporary files
+      #  os.remove(tag+'.mft')
 
 
 

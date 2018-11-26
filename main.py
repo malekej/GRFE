@@ -14,7 +14,7 @@ Please select action:
     • delete - to delte files from ftp
     • mft - to upload to mft
     • help - for some tips
-    • q - to close script''')
+    • q - to close script\n''')
 
         try:#checks if you want overwrite automate settings
             decision_lst = decision.split(' ')
@@ -36,7 +36,7 @@ Please select action:
 
         if decision == 'mft' and flag:
             mft(week_diff=week_diff)
-        elif decision == 'mft' and flag:
+        elif decision == 'mft' and not flag:
             mft()
 
         if decision == 'help':
