@@ -20,6 +20,8 @@ def mft(week=0, year=0, flag = False, week_diff=0):
         else:
             year = datetime.datetime.now().year
 
+    if len(str(week))==1:
+        week='0'+str(week)
 
     os.chdir(working_dir)#change of working directory
     for tag in passwords:

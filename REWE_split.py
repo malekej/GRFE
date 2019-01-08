@@ -26,6 +26,8 @@ def download(week_diff=0):
     else:
         yy = datetime.datetime.now().year
 
+    if len(str(week))==1:
+        week='0'+str(week)
 
     #working_dir=r"C:\Users\olwo7001\Desktop\REWE SPLIT"
 
@@ -73,6 +75,8 @@ def download(week_diff=0):
         working_file_t = imported_file_t[:-3]+'txt'  # working TXT file name and his directory
         os.rename(imported_file_t, new_file_t)  # Change name from ZIP to gz
 
+        print('Unzipping file')
+
         # unzipping FIL file
         with gzip.open(new_file, 'rb') as f_in:
             with open(working_file, 'wb') as f_out:
@@ -91,6 +95,8 @@ def download(week_diff=0):
         pen = open(working_dir+'\Penny\PYW'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
         sut = open(working_dir+'\SutterLuety\S7W'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
         x1 = open(working_dir+'\X1_BMLSonstige\X1W'+str(yy)[-2:]+str(week)+'.DAT', "w", encoding='ansi')
+
+        print('Splitting files')
 
         with open(working_file, encoding='ansi') as f:
             i=0
@@ -156,6 +162,7 @@ def download(week_diff=0):
 
         #trying to upload to mft, if can't then will send mail
         try:
+            print('Sending via mft')
             mft(week=week, year=yy, flag = True)
             mail()
         except:
@@ -179,9 +186,13 @@ def delete(week_diff=0):
     if week == 0:#if it was week 1 of new year it will return week from last year, timedelta says how many days back we want to go back
         week=(datetime.datetime.now() - datetime.timedelta(days=dayz)).isocalendar()[1]
 
+    if len(str(week))==1:
+        week='0'+str(week)
+
     filename = 'FIIFNI' + str(week) + '.ZIP'
     filename_t = 'TOIFNI' + str(week) + '.ZIP'
 
+    print('Deleting files')
     # deleting FIIFNI
     try:
         ftp.cwd(directory_FIIFNI)
@@ -200,7 +211,7 @@ def delete(week_diff=0):
         print('I didn\'t find TOIFNI file in FTP')
         pass
 
-    os.chdir(working_dir+'REWE_originals')
+    os.chdir(working_dir+'\REWE_originals')
     try:
         os.remove('FIIFNI' + str(week) + '.txt')
     except FileNotFoundError:
